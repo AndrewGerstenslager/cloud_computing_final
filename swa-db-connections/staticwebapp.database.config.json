@@ -17,5 +17,16 @@
       "enabled": true,
       "path": "/graphql"
     }
+  },
+  "entities": {
+    "House": {
+      "source": "dbo.housing",
+      "permissions": [
+        {
+          "actions": ["read"],
+          "role": "anonymous"
+        }
+      ]
+    }
   }
 }
