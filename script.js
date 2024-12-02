@@ -51,7 +51,6 @@ async function fetchData(url) {
     try {
         // Loop to fetch data until `nextLink` is null
         while (nextUrl) {
-            console.log(nextUrl);
             const response = await fetch(nextUrl);
 
             // Handle HTTP errors
@@ -76,7 +75,7 @@ async function fetchData(url) {
                 : null;
         }
 
-        console.log('Fetched Data:', allData);
+        console.log('Fetched Data');
 
         // Once all data is fetched, perform your tasks
         createCharts(allData);
