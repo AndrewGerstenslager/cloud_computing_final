@@ -10,9 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         #map {
-            height: 400px; /* Adjust the height as needed */
-            width: 80%; /* Adjust the width as needed */
-            margin: 0 auto; /* Center the map */
+            height: 400px;
+            width: 80%;
+            margin: 0 auto;
         }
         #mouse-position {
             position: absolute;
@@ -23,16 +23,16 @@
             border: 1px solid #ccc;
         }
         #coordinates {
-            width: 80%; /* Match the width of the map */
-            margin: 20px auto; /* Center the form and add some space above */
+            width: 80%;
+            margin: 20px auto;
             padding: 10px;
             border: 1px solid #ccc;
             background: white;
         }
         #charts {
-            width: 80%; /* Match the width of the map */
-            margin: 20px auto; /* Center the charts and add some space above */
-            display: none; /* Initially hide the charts */
+            width: 80%;
+            margin: 20px auto;
+            display: none;
         }
         .tab {
             cursor: pointer;
@@ -101,7 +101,6 @@
             boxZoom: false,
             keyboard: false,
             zoomControl: true,
-            
         });
 
         // Add a tile layer to the map
@@ -138,44 +137,38 @@
                 });
         });
 
-        // Function to send data to the regression model
-        function sendData() {
-            var latitude = document.getElementById('latitude').value;
-            var longitude = document.getElementById('longitude').value;
-            var suburb = document.getElementById('suburb').value;
+        // Function to fetch data recursively from the API
+        async function fetchData(url) {
+            const allData = [];
+            let nextUrl = url;
 
-            // Example of sending data to a server (you need to implement the server-side logic)
-            fetch('/predict', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ latitude: latitude, longitude: longitude, suburb: suburb })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Prediction:', data);
-                // Handle the prediction result
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            try {
+                while (nextUrl) {
+                    const response = await fetch(nextUrl);
+                    const json = await response.json();
+
+                    // Add current data to the allData array
+                    allData.push(...json.value);
+
+                    // Update the next URL
+                    nextUrl = json.nextLink || null;
+                }
+                console.log('Fetched Data:', allData);
+
+                // Once all data is fetched, create charts and add markers
+                createCharts(allData);
+                addHouseMarkers(allData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         }
 
-        // Fetch data from the Flask API and create charts
-        fetch('http://127.0.0.1:5000/data')
-            .then(response => response.json())
-            .then(data => {
-                createCharts(data);
-                addHouseMarkers(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        // Call the function with the initial endpoint
+        fetchData('http://wonderful-forest-0ce4e8a0f.4.azurestaticapps.net/rest/House');
 
         function createCharts(data) {
-            // Extract data for histograms
-            var prices = data.map(item => item.Price);
+                // Extract data for histograms
+                var prices = data.map(item => item.Price);
             var rooms = data.map(item => item.Rooms);
             var landsize = data.map(item => item.Landsize);
             var car = data.map(item => item.Car);
@@ -342,8 +335,8 @@
         function addHouseMarkers(data) {
             var redDotIcon = L.icon({
                 iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                iconSize: [8, 8], // size of the icon
-                iconAnchor: [4, 4], // point of the icon which will correspond to marker's location
+                iconSize: [8, 8],
+                iconAnchor: [4, 4],
             });
 
             var markers = L.markerClusterGroup();
@@ -382,7 +375,6 @@
             map.addLayer(markers);
         }
 
-        // Function to show the selected tab
         function showTab(tab) {
             document.querySelectorAll('.tab').forEach(function(el) {
                 el.classList.remove('active');
