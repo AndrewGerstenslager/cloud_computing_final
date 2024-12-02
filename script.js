@@ -48,6 +48,9 @@ async function fetchData(url) {
     const allData = [];
     let nextUrl = url;
 
+    // Show the loading overlay
+    document.getElementById('loading-overlay').style.display = 'flex';
+
     try {
         // Loop to fetch data until `nextLink` is null
         while (nextUrl) {
@@ -75,7 +78,7 @@ async function fetchData(url) {
                 : null;
         }
 
-        console.log('Fetched Data');
+        console.log('Fetched Data:', allData);
 
         // Once all data is fetched, perform your tasks
         createCharts(allData);
@@ -83,6 +86,9 @@ async function fetchData(url) {
     } catch (error) {
         console.error('Error fetching data:', error);
         alert('An error occurred while fetching data. Please try again later.');
+    } finally {
+        // Hide the loading overlay
+        document.getElementById('loading-overlay').style.display = 'none';
     }
 }
 

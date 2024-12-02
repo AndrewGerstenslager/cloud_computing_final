@@ -7,56 +7,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        #map {
-            height: 400px;
-            width: 80%;
-            margin: 0 auto;
-        }
-        #mouse-position {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: white;
-            padding: 5px;
-            border: 1px solid #ccc;
-        }
-        #coordinates {
-            width: 80%;
-            margin: 20px auto;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background: white;
-        }
-        #charts {
-            width: 80%;
-            margin: 20px auto;
-            display: none;
-        }
-        .tab {
-            cursor: pointer;
-            padding: 10px 20px;
-            display: inline-block;
-            background: #f1f1f1;
-            border: 1px solid #ccc;
-            margin-right: 5px;
-        }
-        .tab.active {
-            background: #ccc;
-        }
-        .modal {
-            display: none;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            padding: 10px;
-            border: 1px solid #ccc;
-            z-index: 1000;
-        }
-    </style>
 </head>
 <body>
     <div>
@@ -77,6 +29,10 @@
                 <input type="text" id="suburb" name="suburb" readonly><br>
                 <button type="button" onclick="sendData()">Send Data</button>
             </form>
+        </div>
+        <div id="loading-overlay">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading Data...</div>
         </div>
     </div>
     <div id="charts">
