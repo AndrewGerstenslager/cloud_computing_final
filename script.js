@@ -45,14 +45,13 @@ map.on('click', function(e) {
 });
 
 async function fetchData(url) {
-    // Array to store all fetched data
     const allData = [];
     let nextUrl = url;
 
     try {
         // Loop to fetch data until `nextLink` is null
         while (nextUrl) {
-            console.log(nextUrl)
+            console.log(nextUrl);
             const response = await fetch(nextUrl);
 
             // Handle HTTP errors
@@ -71,7 +70,7 @@ async function fetchData(url) {
             // Add fetched data to the allData array
             allData.push(...json.value);
 
-            // Update `nextUrl` by replacing base URL with /data-api/rest/House
+            // Update `nextUrl` by replacing base URL with /data-api/rest/House and ensuring $first=1000 is included
             nextUrl = json.nextLink
                 ? json.nextLink.replace(/^.*\/rest\/House/, '/data-api/rest/House')
                 : null;
@@ -88,10 +87,8 @@ async function fetchData(url) {
     }
 }
 
-// Call the function with the initial endpoint
-fetchData('/data-api/rest/House');
-
-
+// Call the function with the initial endpoint and $first=1000 parameter
+fetchData('/data-api/rest/House?$first=5000');
 
 function createCharts(data) {
     // Extract data for histograms
