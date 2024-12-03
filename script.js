@@ -1,6 +1,6 @@
-// Initialize the map and set its view to Melbourne
+// Initialize the map and set its view to Flinders Street Station, Melbourne
 var map = L.map('map', {
-    center: [-37.8136, 144.9631],
+    center: [-37.8181, 144.9668], // Flinders Street Station coordinates
     zoom: 13,
     dragging: true,
     scrollWheelZoom: true,
@@ -21,6 +21,20 @@ map.on('mousemove', function(e) {
 });
 
 var marker;
+var flindersStation = L.latLng(-37.8181, 144.9668); // Flinders Street Station coordinates
+
+// Function to calculate distance in kilometers
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the Earth in kilometers
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLon = (lon2 - lon1) * Math.PI / 180;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var distance = R * c;
+    return distance;
+}
 
 // Add a marker on map click and get the suburb
 map.on('click', function(e) {
@@ -31,17 +45,22 @@ map.on('click', function(e) {
     document.getElementById('latitude').value = e.latlng.lat.toFixed(5);
     document.getElementById('longitude').value = e.latlng.lng.toFixed(5);
 
+    // Calculate distance from Flinders Street Station
+    var distance = calculateDistance(flindersStation.lat, flindersStation.lng, e.latlng.lat, e.latlng.lng);
+    document.getElementById('distance').value = distance.toFixed(2);
+
     // Reverse geocode to get the suburb
     fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.latlng.lat}&lon=${e.latlng.lng}`)
-        .then(response => response.json())
-        .then(data => {
-            var suburb = data.address.suburb || 'Unknown';
-            document.getElementById('suburb').value = suburb;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('suburb').value = 'Error';
-        });
+
+    .then(response => response.json())
+    .then(data => {
+        var suburb = data.address.suburb || 'Unknown';
+        document.getElementById('suburb').value = suburb;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('suburb').value = 'Error';
+    });
 });
 
 async function fetchData(url) {
@@ -264,7 +283,7 @@ function createCharts(data) {
 function addHouseMarkers(data) {
     var redDotIcon = L.icon({
         iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
-        iconSize: [8, 8],
+        iconSize: [25, 25],
         iconAnchor: [4, 4],
     });
 
@@ -334,7 +353,9 @@ async function sendData() {
     const landsize = document.getElementById('landsize').value;
     const bathroom = document.getElementById('bathroom').value;
     const car = document.getElementById('car').value;
+    const type = document.getElementById('type').value;
 
+    console.log('Latest form data:');
     console.log('Latitude:', latitude);
     console.log('Longitude:', longitude);
     console.log('Suburb:', suburb);
@@ -342,6 +363,10 @@ async function sendData() {
     console.log('Landsize:', landsize);
     console.log('Bathroom:', bathroom);
     console.log('Car:', car);
+    console.log('Type:', type);
+
+    // Set the predicted price to -1
+    document.getElementById('predicted-price').value = '-1';
 }
 
 // Show the map tab by default
