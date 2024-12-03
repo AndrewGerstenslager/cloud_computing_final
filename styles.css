@@ -1,121 +1,228 @@
-#map {
-    height: 400px;
-    width: 80%;
-    margin: 0 auto;
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #625D5D; /* Softer dark mode */
+    color: #ffffff;
 }
 
-#mouse-position {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: white;
-    padding: 5px;
-    border: 1px solid #ccc;
+a {
+    color: #1e90ff;
+    text-decoration: none;
 }
 
-#coordinates {
-    width: 80%;
-    margin: 20px auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background: white;
-}
-
-#charts {
-    width: 80%;
-    margin: 20px auto;
-    display: none;
+/* Navigation Tabs */
+.navigation-tabs {
+    display: flex;
+    background-color: #3C3B3B;
+    border-bottom: 1px solid #555;
 }
 
 .tab {
+    flex: 1;
+    text-align: center;
+    color: #cccccc;
+    padding: 15px;
     cursor: pointer;
-    padding: 10px 20px;
-    display: inline-block;
-    background: #f1f1f1;
-    border: 1px solid #ccc;
-    margin-right: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.tab:hover {
+    background-color: #555;
 }
 
 .tab.active {
-    background: #ccc;
+    background-color: #0073e6;
+    color: #ffffff;
 }
 
-.modal {
+/* Content Tabs */
+.content-tab {
     display: none;
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    padding: 10px;
-    border: 1px solid #ccc;
-    z-index: 1000;
+    padding: 20px;
 }
 
-#loading-overlay {
+.content-tab.active {
+    display: block;
+}
+
+/* Map Container */
+.map-container {
+    width: 100%;
+    height: 500px;
+    border: 2px solid #444;
+    margin: 20px 0;
+}
+
+/* Mouse Position Floating Box */
+#mouse-position {
     position: absolute;
+    top: 70px; /* Adjusted to float below the header */
+    right: 20px;
+    background-color: rgba(50, 50, 50, 0.9);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Form Section */
+.form-section {
+    background: #3C3B3B;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    margin: 15px 0;
+}
+
+.form-section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #0073e6;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    color: #cccccc;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    background: #444;
+    color: #ffffff;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #0073e6;
+}
+
+input[type="range"] {
+    width: calc(100% - 20px);
+}
+
+button {
+    background-color: #0073e6;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+.center-button {
+    text-align: center;
+}
+
+/* Two-Column Layout for Form Sections */
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.pin-data, .manual-input {
+    flex: 1;
+}
+
+/* Predicted Price Container */
+.price-container {
+    margin-top: 20px;
+    padding: 15px;
+    background: #3C3B3B;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Charts Section */
+canvas {
+    background: #3C3B3B;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    display: none;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 1000;
-    display: none; /* Initially hidden */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Stack items vertically */
+    gap: 15px; /* Add spacing between spinner and text */
 }
 
-.spinner {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
+.loading-overlay .spinner {
+    border: 6px solid #3C3B3B;
+    border-top: 6px solid #0073e6;
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    animation: spin 2s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+.loading-overlay .loading-text {
+    font-size: 16px;
+    color: #ffffff;
+    text-align: center;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-.loading-text {
-    margin-top: 10px;
-    font-size: 18px;
-    color: #333;
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+    }
 }
 
+/* Ensure input fields fit within the div */
+input[type="text"] {
+    width: calc(100% - 20px); /* Adjust for padding */
+    box-sizing: border-box; /* Include padding and border in width */
+    padding: 8px;
+    margin-top: 5px;
+    background: #444;
+    color: #ffffff;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #0073e6;
+}
+
+/* Adjust form container padding */
 #form-container {
-    display: flex;
-    justify-content: space-between;
-}
-#pin-info, #manual-info {
-    width: 45%;
-}
-
-.loading-text {
-    margin-top: 10px;
-    font-size: 18px;
-    color: #333;
-}
-
-#form-container {
-    display: flex;
-    justify-content: space-between;
-}
-#pin-info, #manual-info {
-    width: 45%;
-}
-
-.form-section-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.center-button {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    padding: 10px;
+    box-sizing: border-box; /* Ensures everything fits inside the container */
 }

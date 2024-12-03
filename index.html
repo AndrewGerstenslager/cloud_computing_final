@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<title>Melbourne Map</title>
 		<meta charset="utf-8" />
@@ -20,19 +20,21 @@
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	</head>
 	<body>
-		<div>
+		<div class="navigation-tabs">
 			<div class="tab active" onclick="showTab('map-container')">Map</div>
 			<div class="tab" onclick="showTab('charts')">Global</div>
 		</div>
-		<div id="map-container">
-			<h1>Map of Melbourne</h1>
-			<div id="map"></div>
-			<div id="mouse-position">Mouse Position:</div>
-			<div id="coordinates">
+
+		<div id="map-container" class="content-tab active">
+			<h1 class="main-title">Map of Melbourne</h1>
+			<div id="map" class="map-container"></div>
+			<div id="mouse-position" class="mouse-position">Mouse Position:</div>
+
+			<div id="coordinates" class="form-section">
 				<form id="location-form">
-					<div id="form-container">
-						<div id="pin-info">
-							<div class="form-section-title">Data from Pin on Map</div>
+					<div class="form-container">
+						<div class="form-section pin-data">
+							<h2 class="form-section-title">Data from Pin on Map</h2>
 							<label for="latitude">Latitude:</label>
 							<input type="text" id="latitude" name="latitude" readonly /><br />
 							<label for="longitude">Longitude:</label>
@@ -47,9 +49,10 @@
 							<label for="distance">Distance (km):</label>
 							<input type="text" id="distance" name="distance" readonly /><br />
 						</div>
-						<div id="manual-info">
-							<div class="form-section-title">Manual Input Data</div>
-							<label for="bedroom2">Bedroom2:</label>
+
+						<div class="form-section manual-input">
+							<h2 class="form-section-title">Manual Input Data</h2>
+							<label for="bedroom2"># of bedrooms:</label>
 							<input
 								type="range"
 								id="bedroom2"
@@ -60,7 +63,8 @@
 								oninput="updateSliderValue('bedroom2')"
 							/>
 							<span id="bedroom2-value">1</span><br />
-							<label for="landsize">Landsize (sqm):</label>
+
+							<label for="landsize">Land size (sqm):</label>
 							<input
 								type="range"
 								id="landsize"
@@ -71,7 +75,8 @@
 								oninput="updateSliderValue('landsize')"
 							/>
 							<span id="landsize-value">50</span><br />
-							<label for="bathroom">Bathroom:</label>
+
+							<label for="bathroom"># of bathrooms:</label>
 							<input
 								type="range"
 								id="bathroom"
@@ -82,7 +87,8 @@
 								oninput="updateSliderValue('bathroom')"
 							/>
 							<span id="bathroom-value">1</span><br />
-							<label for="car">Car:</label>
+
+							<label for="car">Size of garage (in cars):</label>
 							<input
 								type="range"
 								id="car"
@@ -93,6 +99,7 @@
 								oninput="updateSliderValue('car')"
 							/>
 							<span id="car-value">1</span><br />
+
 							<label for="type">Type:</label>
 							<select id="type" name="type">
 								<option value="h">House, Cottage, Villa, Semi, Terrace</option>
@@ -101,12 +108,14 @@
 							><br />
 						</div>
 					</div>
+
 					<div class="center-button">
 						<button type="button" onclick="sendData()">Send Data</button>
 					</div>
 				</form>
 			</div>
-			<div id="predicted-price-container">
+
+			<div id="predicted-price-container" class="price-container">
 				<label for="predicted-price">Predicted House Price:</label>
 				<input
 					type="text"
@@ -116,12 +125,14 @@
 					value=""
 				/><br />
 			</div>
-			<div id="loading-overlay">
+
+			<div id="loading-overlay" class="loading-overlay">
 				<div class="spinner"></div>
-				<div id="loading-text" class="loading-text">Loading data...</div>
+				<p id="loading-text" class="loading-text">Loading data...</p>
 			</div>
 		</div>
-		<div id="charts">
+
+		<div id="charts" class="content-tab">
 			<canvas id="histogram"></canvas>
 			<canvas id="rooms-histogram"></canvas>
 			<canvas id="landsize-histogram"></canvas>
@@ -129,7 +140,9 @@
 			<canvas id="suburb-pie-chart"></canvas>
 			<canvas id="regionname-pie-chart"></canvas>
 		</div>
+
 		<div id="house-modal" class="modal"></div>
+
 		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 		<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 		<script src="script.js"></script>
