@@ -463,7 +463,7 @@ async function sendData() {
   const requestHeaders = new Headers({ "Content-Type": "application/json" });
 
   // Replace this with the primary/secondary key, AMLToken, or Microsoft Entra ID token for the endpoint
-  const apiKey = process.env.ML_TOKEN;
+  const apiKey = "tJdhKnd7TKZIuIBszI6iKUzefjl8YA9A";
   if (!apiKey) {
     throw new Error("A key should be provided to invoke the endpoint");
   }
