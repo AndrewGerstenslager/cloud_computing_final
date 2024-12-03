@@ -30,7 +30,7 @@
                         <input type="text" id="longitude" name="longitude" readonly><br>
                         <label for="suburb">Suburb:</label>
                         <input type="text" id="suburb" name="suburb" readonly><br>
-                        <label for="distance">Distance (miles):</label>
+                        <label for="distance">Distance (km):</label>
                         <input type="text" id="distance" name="distance" readonly><br>
                     </div>
                     <div id="manual-info">
@@ -59,6 +59,10 @@
                     <button type="button" onclick="sendData()">Send Data</button>
                 </div>
             </form>
+        </div>
+        <div id="predicted-price-container">
+            <label for="predicted-price">Predicted House Price:</label>
+            <input type="text" id="predicted-price" name="predicted-price" readonly value=""><br>
         </div>
         <div id="loading-overlay">
             <div class="spinner"></div>
