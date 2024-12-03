@@ -7,6 +7,15 @@ body, html {
     color: #ffffff;
 }
 
+/* Headings */
+h1 {
+    text-align: center;
+    margin: 5px auto;
+    color: #ffffff;
+    font-size: 2em;
+    padding: 5px;
+}
+
 a {
     color: #1e90ff;
     text-decoration: none;
@@ -50,10 +59,11 @@ a {
 
 /* Map Container */
 .map-container {
-    width: 100%;
+    width: 95%;
     height: 500px;
     border: 2px solid #444;
-    margin: 20px 0;
+    margin: 20px auto; /* Changed from '20px 0' to '20px auto' */
+    display: block;
 }
 
 /* Mouse Position Floating Box */

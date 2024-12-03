@@ -21,11 +21,12 @@
 	</head>
 	<body>
 		<div class="navigation-tabs">
-			<div class="tab active" onclick="showTab('map-container')">Map</div>
+			<div class="tab active" onclick="showTab('instructions')">Instructions</div>
+			<div class="tab" onclick="showTab('map-container')">Map</div>
 			<div class="tab" onclick="showTab('charts')">Global</div>
 		</div>
 
-		<div id="map-container" class="content-tab active">
+		<div id="map-container" class="content-tab">
 			<h1 class="main-title">Map of Melbourne</h1>
 			<div id="map" class="map-container"></div>
 			<div id="mouse-position" class="mouse-position">Mouse Position:</div>
@@ -139,6 +140,34 @@
 			<canvas id="car-histogram"></canvas>
 			<canvas id="suburb-pie-chart"></canvas>
 			<canvas id="regionname-pie-chart"></canvas>
+		</div>
+
+		<div id="instructions" class="content-tab active">
+			<h1>How to Use This Application</h1>
+			<div class="instructions-content">
+				<h2>Map Tab</h2>
+				<ul>
+					<li>Click anywhere on the map to select a location</li>
+					<li>The pin data will automatically populate with location details</li>
+					<li>Adjust the sliders for bedrooms, bathrooms, land size, and garage spaces</li>
+					<li>Select the property type from the dropdown menu</li>
+					<li>Click "Send Data" to get a price prediction</li>
+				</ul>
+
+				<h2>Global Tab</h2>
+				<ul>
+					<li>View various charts and statistics about Melbourne housing data</li>
+					<li>Includes histograms for room distribution, land sizes, and more</li>
+					<li>Pie charts show distribution across suburbs and regions</li>
+				</ul>
+
+				<h2>Tips</h2>
+				<ul>
+					<li>For most accurate predictions, ensure all fields are filled</li>
+					<li>You can zoom in/out on the map using the mouse wheel</li>
+					<li>Hover over chart elements to see detailed information</li>
+				</ul>
+			</div>
 		</div>
 
 		<div id="house-modal" class="modal"></div>

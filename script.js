@@ -382,20 +382,27 @@ function addHouseMarkers(data) {
 }
 
 function showTab(tab) {
+	// Remove active class from all tabs
 	document.querySelectorAll(".tab").forEach(function (el) {
-		el.classList.remove("active");
+	    el.classList.remove("active");
 	});
-	document.querySelectorAll("#map-container, #charts").forEach(function (el) {
-		el.style.display = "none";
+	
+	// Hide all content tabs
+	document.querySelectorAll(".content-tab").forEach(function (el) {
+	    el.style.display = "none";
 	});
+	
+	// Show selected content tab
 	document.querySelector(`#${tab}`).style.display = "block";
-	document
-		.querySelector(`.tab[onclick="showTab('${tab}')"]`)
-		.classList.add("active");
+	
+	// Add active class to selected tab
+	document.querySelector(`.tab[onclick="showTab('${tab}')"]`).classList.add("active");
+	
+	// Special handling for map to ensure proper rendering
 	if (tab === "map-container") {
-		setTimeout(function () {
-			map.invalidateSize();
-		}, 100);
+	    setTimeout(function () {
+	        map.invalidateSize();
+	    }, 100);
 	}
 }
 
@@ -491,7 +498,7 @@ async function sendData() {
     document.getElementById("loading-overlay").style.display = "none";
     document.getElementById("loading-text").textContent = "Loading data...";
   }
-	}
+}
 
 // Show the map tab by default
-showTab("map-container");
+showTab("instructions");
