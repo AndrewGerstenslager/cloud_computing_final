@@ -86,3 +86,36 @@
     font-size: 18px;
     color: #333;
 }
+
+#form-container {
+    display: flex;
+    justify-content: space-between;
+}
+#pin-info, #manual-info {
+    width: 45%;
+}
+
+.loading-text {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+#form-container {
+    display: flex;
+    justify-content: space-between;
+}
+#pin-info, #manual-info {
+    width: 45%;
+}
+
+.form-section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

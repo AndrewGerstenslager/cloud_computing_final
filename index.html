@@ -21,30 +21,43 @@
         <div id="mouse-position">Mouse Position: </div>
         <div id="coordinates">
             <form id="location-form">
-                <label for="latitude">Latitude:</label>
-                <input type="text" id="latitude" name="latitude" readonly><br>
-                <label for="longitude">Longitude:</label>
-                <input type="text" id="longitude" name="longitude" readonly><br>
-                <label for="suburb">Suburb:</label>
-                <input type="text" id="suburb" name="suburb" readonly><br>
-                
-                <label for="bedroom2">Bedroom2:</label>
-                <input type="range" id="bedroom2" name="bedroom2" min="1" max="10" value="1" oninput="updateSliderValue('bedroom2')">
-                <span id="bedroom2-value">1</span><br>
-                
-                <label for="landsize">Landsize (sqm):</label>
-                <input type="range" id="landsize" name="landsize" min="50" max="1000" value="50" oninput="updateSliderValue('landsize')">
-                <span id="landsize-value">50</span><br>
-                
-                <label for="bathroom">Bathroom:</label>
-                <input type="range" id="bathroom" name="bathroom" min="1" max="5" value="1" oninput="updateSliderValue('bathroom')">
-                <span id="bathroom-value">1</span><br>
-                
-                <label for="car">Car:</label>
-                <input type="range" id="car" name="car" min="1" max="5" value="1" oninput="updateSliderValue('car')">
-                <span id="car-value">1</span><br>
-                
-                <button type="button" onclick="sendData()">Send Data</button>
+                <div id="form-container">
+                    <div id="pin-info">
+                        <div class="form-section-title">Data from Pin on Map</div>
+                        <label for="latitude">Latitude:</label>
+                        <input type="text" id="latitude" name="latitude" readonly><br>
+                        <label for="longitude">Longitude:</label>
+                        <input type="text" id="longitude" name="longitude" readonly><br>
+                        <label for="suburb">Suburb:</label>
+                        <input type="text" id="suburb" name="suburb" readonly><br>
+                        <label for="distance">Distance (miles):</label>
+                        <input type="text" id="distance" name="distance" readonly><br>
+                    </div>
+                    <div id="manual-info">
+                        <div class="form-section-title">Manual Input Data</div>
+                        <label for="bedroom2">Bedroom2:</label>
+                        <input type="range" id="bedroom2" name="bedroom2" min="1" max="6" value="1" oninput="updateSliderValue('bedroom2')">
+                        <span id="bedroom2-value">1</span><br>
+                        <label for="landsize">Landsize (sqm):</label>
+                        <input type="range" id="landsize" name="landsize" min="50" max="1000" value="50" oninput="updateSliderValue('landsize')">
+                        <span id="landsize-value">50</span><br>
+                        <label for="bathroom">Bathroom:</label>
+                        <input type="range" id="bathroom" name="bathroom" min="1" max="5" value="1" oninput="updateSliderValue('bathroom')">
+                        <span id="bathroom-value">1</span><br>
+                        <label for="car">Car:</label>
+                        <input type="range" id="car" name="car" min="0" max="5" value="1" oninput="updateSliderValue('car')">
+                        <span id="car-value">1</span><br>
+                        <label for="type">Type:</label>
+                        <select id="type" name="type">
+                            <option value="h">House, Cottage, Villa, Semi, Terrace</option>
+                            <option value="u">Unit, Duplex</option>
+                            <option value="t">Townhouse</option>
+                        </select><br>
+                    </div>
+                </div>
+                <div class="center-button">
+                    <button type="button" onclick="sendData()">Send Data</button>
+                </div>
             </form>
         </div>
         <div id="loading-overlay">
