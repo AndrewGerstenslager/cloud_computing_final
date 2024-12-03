@@ -326,5 +326,9 @@ function updateSliderValue(sliderId) {
     valueSpan.textContent = slider.value;
 }
 
+async function sendData(){
+    console.log('TODO: data should be sent here')
+}
+
 // Show the map tab by default
 showTab('map-container');
