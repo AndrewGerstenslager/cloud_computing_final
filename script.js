@@ -320,5 +320,11 @@ function showTab(tab) {
     }
 }
 
+function updateSliderValue(sliderId) {
+    var slider = document.getElementById(sliderId);
+    var valueSpan = document.getElementById(sliderId + '-value');
+    valueSpan.textContent = slider.value;
+}
+
 // Show the map tab by default
 showTab('map-container');
