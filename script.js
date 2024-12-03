@@ -159,14 +159,13 @@ function createCharts(allData) {
                 x: {
                     title: {
                         display: true,
-                        text: 'Property Type',
+                        text: 'Features',
                         color: 'white'
                     },
                     ticks: {
                         color: 'white',
-                        callback: function(value) {
-                            return '$' + value.toLocaleString('en-US');
-                        }
+                        maxRotation: 45,
+                        minRotation: 45
                     },
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
@@ -210,12 +209,21 @@ function createCharts(allData) {
     });
 
     // Calculate averages and prepare chart data
-    const regionLabels = Object.keys(regionData);
-    const regionAverages = regionLabels.map(region => {
+    const regionPairs = Object.keys(regionData).map(region => {
         const average = (regionData[region].sum / regionData[region].count).toFixed(2);
         console.log(`Region: ${region}, Average: ${average}, Count: ${regionData[region].count}`);
-        return average;
+        return {
+            region: region,
+            average: parseFloat(average)
+        };
     });
+
+    // Sort regions by average price in descending order
+    regionPairs.sort((a, b) => b.average - a.average);
+
+    // Separate the sorted data back into labels and values
+    const regionLabels = regionPairs.map(pair => pair.region);
+    const regionAverages = regionPairs.map(pair => pair.average.toFixed(2));
     
     console.log('Region Labels:', regionLabels);
     console.log('Region Averages:', regionAverages);
@@ -238,6 +246,54 @@ function createCharts(allData) {
         }
         return colors;
     };
+
+    // Create the third chart
+    const ctx3 = document.createElement('canvas');
+    ctx3.style.width = '100%';
+    ctx3.style.height = '400px';
+    ctx3.style.maxHeight = '400px';
+    ctx3.style.marginTop = '20px';
+    document.getElementById('charts').appendChild(ctx3);
+
+    // Process data for suburb averages
+    const suburbData = {};
+    allData.forEach(house => {
+        if (house.Suburb && house.Price) {
+            if (!suburbData[house.Suburb]) {
+                suburbData[house.Suburb] = {
+                    sum: 0,
+                    count: 0
+                };
+            }
+            const price = parseFloat(house.Price);
+            if (!isNaN(price)) {
+                suburbData[house.Suburb].sum += price;
+                suburbData[house.Suburb].count += 1;
+            }
+        }
+    });
+
+    // Calculate averages and prepare suburb chart data
+    const suburbPairs = Object.keys(suburbData).map(suburb => {
+        const average = (suburbData[suburb].sum / suburbData[suburb].count).toFixed(2);
+        return {
+            suburb: suburb,
+            average: parseFloat(average),
+            count: suburbData[suburb].count
+        };
+    });
+
+    // Sort suburbs by average price in descending order and take top 20
+    const top20Suburbs = suburbPairs
+        .sort((a, b) => b.average - a.average)
+        .slice(0, 20);
+
+    // Separate the sorted data back into labels and values
+    const suburbLabels = top20Suburbs.map(pair => pair.suburb);
+    const suburbAverages = top20Suburbs.map(pair => pair.average.toFixed(2));
+
+    console.log('Top 20 Suburbs:', suburbLabels);
+    console.log('Top 20 Averages:', suburbAverages);
 
     // Create second chart with region data
     const chart2 = new Chart(ctx2, {
@@ -288,6 +344,162 @@ function createCharts(allData) {
                 title: {
                     display: true,
                     text: 'Average House Price by Region',
+                    color: 'white',
+                    font: {
+                        size: 16
+                    }
+                },
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
+    });
+
+    // Create the fourth chart
+    const ctx4 = document.createElement('canvas');
+    ctx4.style.width = '100%';
+    ctx4.style.height = '400px';
+    ctx4.style.maxHeight = '400px';
+    ctx4.style.marginTop = '20px';
+    document.getElementById('charts').appendChild(ctx4);
+
+    // Get bottom 20 suburbs
+    const bottom20Suburbs = suburbPairs
+        .sort((a, b) => a.average - b.average)  // Sort in ascending order
+        .slice(0, 20);
+
+    // Separate the sorted data back into labels and values for bottom 20
+    const bottomSuburbLabels = bottom20Suburbs.map(pair => pair.suburb);
+    const bottomSuburbAverages = bottom20Suburbs.map(pair => pair.average.toFixed(2));
+
+    console.log('Bottom 20 Suburbs:', bottomSuburbLabels);
+    console.log('Bottom 20 Averages:', bottomSuburbAverages);
+
+    // Create third chart with suburb data
+    const chart3 = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: suburbLabels,
+            datasets: [{
+                label: 'Average House Price by Suburb (Top 20)',
+                data: suburbAverages.map(price => parseFloat(price)),
+                backgroundColor: generateColors(20),
+                borderColor: generateBorderColors(20),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Average Price ($)',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white',
+                        callback: function(value) {
+                            return '$' + value.toLocaleString('en-US');
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Suburb',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white',
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Top 20 Suburbs by Average House Price',
+                    color: 'white',
+                    font: {
+                        size: 16
+                    }
+                },
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
+    });
+
+    // Create fourth chart with bottom 20 suburbs data
+    const chart4 = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: bottomSuburbLabels,
+            datasets: [{
+                label: 'Average House Price by Suburb (Bottom 20)',
+                data: bottomSuburbAverages.map(price => parseFloat(price)),
+                backgroundColor: generateColors(20),
+                borderColor: generateBorderColors(20),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Average Price ($)',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white',
+                        callback: function(value) {
+                            return '$' + value.toLocaleString('en-US');
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Suburb',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white',
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Bottom 20 Suburbs by Average House Price',
                     color: 'white',
                     font: {
                         size: 16
