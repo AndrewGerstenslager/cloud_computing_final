@@ -1,85 +1,137 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Melbourne Map</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <div>
-        <div class="tab active" onclick="showTab('map-container')">Map</div>
-        <div class="tab" onclick="showTab('charts')">Global</div>
-    </div>
-    <div id="map-container">
-        <h1>Map of Melbourne</h1>
-        <div id="map"></div>
-        <div id="mouse-position">Mouse Position: </div>
-        <div id="coordinates">
-            <form id="location-form">
-                <div id="form-container">
-                    <div id="pin-info">
-                        <div class="form-section-title">Data from Pin on Map</div>
-                        <label for="latitude">Latitude:</label>
-                        <input type="text" id="latitude" name="latitude" readonly><br>
-                        <label for="longitude">Longitude:</label>
-                        <input type="text" id="longitude" name="longitude" readonly><br>
-                        <label for="suburb">Suburb:</label>
-                        <input type="text" id="suburb" name="suburb" readonly><br>
-                        <label for="distance">Distance (km):</label>
-                        <input type="text" id="distance" name="distance" readonly><br>
-                    </div>
-                    <div id="manual-info">
-                        <div class="form-section-title">Manual Input Data</div>
-                        <label for="bedroom2">Bedroom2:</label>
-                        <input type="range" id="bedroom2" name="bedroom2" min="1" max="6" value="1" oninput="updateSliderValue('bedroom2')">
-                        <span id="bedroom2-value">1</span><br>
-                        <label for="landsize">Landsize (sqm):</label>
-                        <input type="range" id="landsize" name="landsize" min="50" max="1000" value="50" oninput="updateSliderValue('landsize')">
-                        <span id="landsize-value">50</span><br>
-                        <label for="bathroom">Bathroom:</label>
-                        <input type="range" id="bathroom" name="bathroom" min="1" max="5" value="1" oninput="updateSliderValue('bathroom')">
-                        <span id="bathroom-value">1</span><br>
-                        <label for="car">Car:</label>
-                        <input type="range" id="car" name="car" min="0" max="5" value="1" oninput="updateSliderValue('car')">
-                        <span id="car-value">1</span><br>
-                        <label for="type">Type:</label>
-                        <select id="type" name="type">
-                            <option value="h">House, Cottage, Villa, Semi, Terrace</option>
-                            <option value="u">Unit, Duplex</option>
-                            <option value="t">Townhouse</option>
-                        </select><br>
-                    </div>
-                </div>
-                <div class="center-button">
-                    <button type="button" onclick="sendData()">Send Data</button>
-                </div>
-            </form>
-        </div>
-        <div id="predicted-price-container">
-            <label for="predicted-price">Predicted House Price:</label>
-            <input type="text" id="predicted-price" name="predicted-price" readonly value=""><br>
-        </div>
-        <div id="loading-overlay">
-            <div class="spinner"></div>
-            <div class="loading-text">Loading Data...</div>
-        </div>
-    </div>
-    <div id="charts">
-        <canvas id="histogram"></canvas>
-        <canvas id="rooms-histogram"></canvas>
-        <canvas id="landsize-histogram"></canvas>
-        <canvas id="car-histogram"></canvas>
-        <canvas id="suburb-pie-chart"></canvas>
-        <canvas id="regionname-pie-chart"></canvas>
-    </div>
-    <div id="house-modal" class="modal"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-    <script src="script.js"></script>
-</body>
+	<head>
+		<title>Melbourne Map</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	</head>
+	<body>
+		<div>
+			<div class="tab active" onclick="showTab('map-container')">Map</div>
+			<div class="tab" onclick="showTab('charts')">Global</div>
+		</div>
+		<div id="map-container">
+			<h1>Map of Melbourne</h1>
+			<div id="map"></div>
+			<div id="mouse-position">Mouse Position:</div>
+			<div id="coordinates">
+				<form id="location-form">
+					<div id="form-container">
+						<div id="pin-info">
+							<div class="form-section-title">Data from Pin on Map</div>
+							<label for="latitude">Latitude:</label>
+							<input type="text" id="latitude" name="latitude" readonly /><br />
+							<label for="longitude">Longitude:</label>
+							<input
+								type="text"
+								id="longitude"
+								name="longitude"
+								readonly
+							/><br />
+							<label for="suburb">Suburb:</label>
+							<input type="text" id="suburb" name="suburb" readonly /><br />
+							<label for="distance">Distance (km):</label>
+							<input type="text" id="distance" name="distance" readonly /><br />
+						</div>
+						<div id="manual-info">
+							<div class="form-section-title">Manual Input Data</div>
+							<label for="bedroom2">Bedroom2:</label>
+							<input
+								type="range"
+								id="bedroom2"
+								name="bedroom2"
+								min="1"
+								max="6"
+								value="1"
+								oninput="updateSliderValue('bedroom2')"
+							/>
+							<span id="bedroom2-value">1</span><br />
+							<label for="landsize">Landsize (sqm):</label>
+							<input
+								type="range"
+								id="landsize"
+								name="landsize"
+								min="50"
+								max="1000"
+								value="50"
+								oninput="updateSliderValue('landsize')"
+							/>
+							<span id="landsize-value">50</span><br />
+							<label for="bathroom">Bathroom:</label>
+							<input
+								type="range"
+								id="bathroom"
+								name="bathroom"
+								min="1"
+								max="5"
+								value="1"
+								oninput="updateSliderValue('bathroom')"
+							/>
+							<span id="bathroom-value">1</span><br />
+							<label for="car">Car:</label>
+							<input
+								type="range"
+								id="car"
+								name="car"
+								min="0"
+								max="5"
+								value="1"
+								oninput="updateSliderValue('car')"
+							/>
+							<span id="car-value">1</span><br />
+							<label for="type">Type:</label>
+							<select id="type" name="type">
+								<option value="h">House, Cottage, Villa, Semi, Terrace</option>
+								<option value="u">Unit, Duplex</option>
+								<option value="t">Townhouse</option></select
+							><br />
+						</div>
+					</div>
+					<div class="center-button">
+						<button type="button" onclick="sendData()">Send Data</button>
+					</div>
+				</form>
+			</div>
+			<div id="predicted-price-container">
+				<label for="predicted-price">Predicted House Price:</label>
+				<input
+					type="text"
+					id="predicted-price"
+					name="predicted-price"
+					readonly
+					value=""
+				/><br />
+			</div>
+			<div id="loading-overlay">
+				<div class="spinner"></div>
+				<div id="loading-text" class="loading-text">Loading data...</div>
+			</div>
+		</div>
+		<div id="charts">
+			<canvas id="histogram"></canvas>
+			<canvas id="rooms-histogram"></canvas>
+			<canvas id="landsize-histogram"></canvas>
+			<canvas id="car-histogram"></canvas>
+			<canvas id="suburb-pie-chart"></canvas>
+			<canvas id="regionname-pie-chart"></canvas>
+		</div>
+		<div id="house-modal" class="modal"></div>
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+		<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+		<script src="script.js"></script>
+	</body>
 </html>

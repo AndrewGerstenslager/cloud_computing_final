@@ -458,32 +458,39 @@ async function sendData() {
 	const url =
 		"https://fitness-tracker-functionapp.azurewebsites.net/api/httpMLRegression?code=jnV3SGWgA9BjslQszMSkMGfeLp-yvWZRwJsqXHK8hx-XAzFuelkEiw%3D%3D";
 
-	try {
-		const response = await fetch(url, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(requestBody),
-		});
+  // Show the loading overlay
+  document.getElementById("loading-overlay").style.display = "flex";
+  document.getElementById("loading-text").textContent = "Calculating the estimated price of your house...";
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
 
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		}
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-		const result = await response.json();
-		const predictedPrice = result.predictions[0];
-		document.getElementById("predicted-price").value = predictedPrice;
-	} catch (error) {
-		console.error("Error:", error);
-		alert(
-			"An error occurred while predicting the price. Please try again later."
-		);
+    const result = await response.json();
+    const predictedPrice = result[0];
+    document.getElementById("predicted-price").value = predictedPrice;
+  } catch (error) {
+    console.error("Error:", error);
+    alert(
+      "An error occurred while predicting the price. Please try again later."
+    );
 
-		// Set the predicted price to -1
-		document.getElementById("predicted-price").value = "-1";
+    // Set the predicted price to -1
+    document.getElementById("predicted-price").value = "-1";
+  } finally {
+    // Hide the loading overlay
+    document.getElementById("loading-overlay").style.display = "none";
+    document.getElementById("loading-text").textContent = "Loading data...";
+  }
 	}
-}
 
 // Show the map tab by default
 showTab("map-container");
