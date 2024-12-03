@@ -446,6 +446,45 @@ function createCharts(allData) {
         }
     });
 
+    // Create the fifth chart
+    const ctx5 = document.createElement('canvas');
+    ctx5.style.width = '100%';
+    ctx5.style.height = '400px';
+    ctx5.style.maxHeight = '400px';
+    ctx5.style.marginTop = '20px';
+    document.getElementById('charts').appendChild(ctx5);
+
+    // Process data for car spaces averages
+    const carData = {};
+    allData.forEach(house => {
+        if (house.Car && house.Price) {
+            const cars = parseFloat(house.Car);
+            const price = parseFloat(house.Price);
+            // Only process data for 0-5 cars
+            if (!isNaN(cars) && !isNaN(price) && cars >= 0 && cars <= 5) {
+                if (!carData[cars]) {
+                    carData[cars] = {
+                        sum: 0,
+                        count: 0
+                    };
+                }
+                carData[cars].sum += price;
+                carData[cars].count += 1;
+            }
+        }
+    });
+
+    // Calculate averages for each number of cars
+    const carLabels = Array.from({length: 6}, (_, i) => i.toString());  // ["0", "1", "2", "3", "4", "5"]
+    const carAverages = carLabels.map(cars => {
+        if (carData[cars]) {
+            return (carData[cars].sum / carData[cars].count).toFixed(2);
+        }
+        return "0";
+    });
+
+    console.log('Car Space Averages:', carAverages);
+
     // Create fourth chart with bottom 20 suburbs data
     const chart4 = new Chart(ctx4, {
         type: 'bar',
@@ -500,6 +539,281 @@ function createCharts(allData) {
                 title: {
                     display: true,
                     text: 'Bottom 20 Suburbs by Average House Price',
+                    color: 'white',
+                    font: {
+                        size: 16
+                    }
+                },
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
+    });
+
+    // Create the sixth chart for bedrooms
+    const ctx6 = document.createElement('canvas');
+    ctx6.style.width = '100%';
+    ctx6.style.height = '400px';
+    ctx6.style.maxHeight = '400px';
+    ctx6.style.marginTop = '20px';
+    document.getElementById('charts').appendChild(ctx6);
+
+    // Create the seventh chart for bathrooms
+    const ctx7 = document.createElement('canvas');
+    ctx7.style.width = '100%';
+    ctx7.style.height = '400px';
+    ctx7.style.maxHeight = '400px';
+    ctx7.style.marginTop = '20px';
+    document.getElementById('charts').appendChild(ctx7);
+
+    // Process data for bedrooms averages
+    const bedroomData = {};
+    allData.forEach(house => {
+        if (house.Bedroom2 && house.Price) {
+            const bedrooms = parseFloat(house.Bedroom2);
+            const price = parseFloat(house.Price);
+            // Only process data for 0-5 bedrooms
+            if (!isNaN(bedrooms) && !isNaN(price) && bedrooms >= 1 && bedrooms <= 5) {
+                if (!bedroomData[bedrooms]) {
+                    bedroomData[bedrooms] = {
+                        sum: 0,
+                        count: 0
+                    };
+                }
+                bedroomData[bedrooms].sum += price;
+                bedroomData[bedrooms].count += 1;
+            }
+        }
+    });
+
+    // Process data for bathrooms averages
+    const bathroomData = {};
+    allData.forEach(house => {
+        if (house.Bathroom && house.Price) {
+            const bathrooms = parseFloat(house.Bathroom);
+            const price = parseFloat(house.Price);
+            // Only process data for 0-5 bathrooms
+            if (!isNaN(bathrooms) && !isNaN(price) && bathrooms >= 1 && bathrooms <= 5) {
+                if (!bathroomData[bathrooms]) {
+                    bathroomData[bathrooms] = {
+                        sum: 0,
+                        count: 0
+                    };
+                }
+                bathroomData[bathrooms].sum += price;
+                bathroomData[bathrooms].count += 1;
+            }
+        }
+    });
+
+    // Calculate averages for bedrooms (1-5 only)
+    const bedroomLabels = Array.from({length: 5}, (_, i) => (i + 1).toString());
+    const bedroomAverages = bedroomLabels.map(bedrooms => {
+        if (bedroomData[bedrooms]) {
+            return (bedroomData[bedrooms].sum / bedroomData[bedrooms].count).toFixed(2);
+        }
+        return "0";
+    });
+
+    // Calculate averages for bathrooms (1-5 only)
+    const bathroomLabels = Array.from({length: 5}, (_, i) => (i + 1).toString());
+    const bathroomAverages = bathroomLabels.map(bathrooms => {
+        if (bathroomData[bathrooms]) {
+            return (bathroomData[bathrooms].sum / bathroomData[bathrooms].count).toFixed(2);
+        }
+        return "0";
+    });
+
+    console.log('Bedroom Averages:', bedroomAverages);
+    console.log('Bathroom Averages:', bathroomAverages);
+
+    // Create fifth chart with car space data
+    const chart5 = new Chart(ctx5, {
+        type: 'bar',
+        data: {
+            labels: carLabels.map(cars => cars + (cars === "1" ? " Car" : " Cars")),
+            datasets: [{
+                label: 'Average House Price by Number of Car Spaces',
+                data: carAverages.map(price => parseFloat(price)),
+                backgroundColor: generateColors(6),
+                borderColor: generateBorderColors(6),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Average Price ($)',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white',
+                        callback: function(value) {
+                            return '$' + value.toLocaleString('en-US');
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Number of Car Spaces',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Average House Price by Number of Car Spaces',
+                    color: 'white',
+                    font: {
+                        size: 16
+                    }
+                },
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
+    });
+
+    // Create sixth chart with bedroom data
+    const chart6 = new Chart(ctx6, {
+        type: 'bar',
+        data: {
+            labels: bedroomLabels.map(bedrooms => bedrooms + (bedrooms === "1" ? " Bedroom" : " Bedrooms")),
+            datasets: [{
+                label: 'Average House Price by Number of Bedrooms',
+                data: bedroomAverages.map(price => parseFloat(price)),
+                backgroundColor: generateColors(6),
+                borderColor: generateBorderColors(6),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Average Price ($)',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white',
+                        callback: function(value) {
+                            return '$' + value.toLocaleString('en-US');
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Number of Bedrooms',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Average House Price by Number of Bedrooms',
+                    color: 'white',
+                    font: {
+                        size: 16
+                    }
+                },
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
+    });
+
+    // Create seventh chart with bathroom data
+    const chart7 = new Chart(ctx7, {
+        type: 'bar',
+        data: {
+            labels: bathroomLabels.map(bathrooms => bathrooms + (bathrooms === "1" ? " Bathroom" : " Bathrooms")),
+            datasets: [{
+                label: 'Average House Price by Number of Bathrooms',
+                data: bathroomAverages.map(price => parseFloat(price)),
+                backgroundColor: generateColors(6),
+                borderColor: generateBorderColors(6),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Average Price ($)',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white',
+                        callback: function(value) {
+                            return '$' + value.toLocaleString('en-US');
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Number of Bathrooms',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Average House Price by Number of Bathrooms',
                     color: 'white',
                     font: {
                         size: 16
