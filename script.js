@@ -414,6 +414,7 @@ async function sendData() {
 	const bathroom = document.getElementById("bathroom").value;
 	const car = document.getElementById("car").value;
 	const type = document.getElementById("type").value;
+  const distance = document.getElementById("distance").value;
 
 	console.log("Latest form data:");
 	console.log("Latitude:", latitude);
@@ -442,7 +443,7 @@ async function sendData() {
 			data: [
 				[
 					type,
-					0,
+					distance,
 					bedroom2,
 					bathroom,
 					car,
