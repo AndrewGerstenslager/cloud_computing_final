@@ -198,14 +198,6 @@ button:hover {
     text-align: center;
 }
 
-/* Charts Section */
-canvas {
-    background: #3C3B3B;
-    padding: 10px;
-    border-radius: 8px;
-    margin: 10px 0;
-}
-
 /* Loading Overlay */
 .loading-overlay {
     display: none;
@@ -276,3 +268,11 @@ input[type="text"]:focus {
     padding: 10px;
     box-sizing: border-box; /* Ensures everything fits inside the container */
 }
+
+/* Content Tabs */
+.content-tab {
+    display: none;
+    padding: 20px;
+}
+
+
