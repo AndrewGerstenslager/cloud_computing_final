@@ -326,8 +326,22 @@ function updateSliderValue(sliderId) {
     valueSpan.textContent = slider.value;
 }
 
-async function sendData(){
-    console.log('TODO: data should be sent here')
+async function sendData() {
+    const latitude = document.getElementById('latitude').value;
+    const longitude = document.getElementById('longitude').value;
+    const suburb = document.getElementById('suburb').value;
+    const bedroom2 = document.getElementById('bedroom2').value;
+    const landsize = document.getElementById('landsize').value;
+    const bathroom = document.getElementById('bathroom').value;
+    const car = document.getElementById('car').value;
+
+    console.log('Latitude:', latitude);
+    console.log('Longitude:', longitude);
+    console.log('Suburb:', suburb);
+    console.log('Bedroom2:', bedroom2);
+    console.log('Landsize:', landsize);
+    console.log('Bathroom:', bathroom);
+    console.log('Car:', car);
 }
 
 // Show the map tab by default
