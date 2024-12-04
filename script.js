@@ -1,3 +1,10 @@
+// Don't even start loading the page if the user isn't logged in 
+const storedUserData = localStorage.getItem("userData");
+if (!storedUserData) { {
+  // No user data found, redirect to login
+  window.location.href = "../login/login.html"; // Adjust the URL as needed
+}
+
 // Initialize the map and set its view to Flinders Street Station, Melbourne
 var map = L.map("map", {
   center: [-37.8181, 144.9668], // Flinders Street Station coordinates
@@ -1129,9 +1136,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (storedUserData) {
     const user = JSON.parse(storedUserData);
     document.getElementById("username").textContent = `${user.display_name}!`;
-  } else {
-    // No user data found, redirect to login
-    window.location.href = "../login/login.html"; // Adjust the URL as needed
   }
 
   // Get the logout button by its ID
