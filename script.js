@@ -1,6 +1,6 @@
-// Don't even start loading the page if the user isn't logged in 
+// Don't even start loading the page if the user isn't logged in
 const storedUserData = localStorage.getItem("userData");
-if (!storedUserData) { {
+if (!storedUserData) {
   // No user data found, redirect to login
   window.location.href = "../login/login.html"; // Adjust the URL as needed
 }
