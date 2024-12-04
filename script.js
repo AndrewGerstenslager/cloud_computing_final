@@ -1,10 +1,3 @@
-// Get the user's name for the title bar
-const userData = localStorage.getItem("userData");
-if (userData) {
-  const user = JSON.parse(userData);
-  document.getElementById("username") = `${user.display_name}!`;
-}
-
 // Initialize the map and set its view to Flinders Street Station, Melbourne
 var map = L.map("map", {
   center: [-37.8181, 144.9668], // Flinders Street Station coordinates
@@ -1132,6 +1125,27 @@ async function loadCSVData() {
 
 // Load CSV data when the page loads
 document.addEventListener("DOMContentLoaded", async () => {
+  const storedUserData = localStorage.getItem("userData");
+  if (storedUserData) {
+    const user = JSON.parse(storedUserData);
+    document.getElementById("username").textContent = `${user.display_name}!`;
+  } else {
+    // No user data found, redirect to login
+    window.location.href = "../login/login.html"; // Adjust the URL as needed
+  }
+
+  // Get the logout button by its ID
+  const logoutButton = document.getElementById("logout-button");
+
+  // Add an event listener for the logout button
+  logoutButton.addEventListener("click", () => {
+    // Remove user data from localStorage
+    localStorage.removeItem("userData");
+
+    // Redirect to the login page
+    window.location.href = "../login/login.html"; // Adjust the URL as needed
+  });
+
   await loadCSVData();
   console.log("CSV Data loaded");
 });
