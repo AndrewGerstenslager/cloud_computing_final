@@ -1,175 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Melbourne Map</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			rel="stylesheet"
-			href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
-		/>
-		<link rel="stylesheet" href="styles.css" />
-		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	</head>
-	<body>
-		<div class="navigation-tabs">
-			<div class="tab active" onclick="showTab('instructions')">Instructions</div>
-			<div class="tab" onclick="showTab('map-container')">Map</div>
-			<div class="tab" onclick="showTab('charts')">Global</div>
-		</div>
+  <head>
+    <title>Melbourne Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <!-- Static Header -->
+  <div class="header">
+    <div class="welcome-message">
+      Welcome, <span id="username">homeowner!</span>
+    </div>
 
-		<div id="map-container" class="content-tab">
-			<h1 class="main-title">Map of Melbourne</h1>
-			<div id="map" class="map-container"></div>
-			<div id="mouse-position" class="mouse-position">Mouse Position:</div>
+    <button class="logout-button" onclick="logout()">Logout</button>
+  </div>
 
-			<div id="coordinates" class="form-section">
-				<form id="location-form">
-					<div class="form-container">
-						<div class="form-section pin-data">
-							<h2 class="form-section-title">Data from Pin on Map</h2>
-							<label for="latitude">Latitude:</label>
-							<input type="text" id="latitude" name="latitude" readonly /><br />
-							<label for="longitude">Longitude:</label>
-							<input
-								type="text"
-								id="longitude"
-								name="longitude"
-								readonly
-							/><br />
-							<label for="suburb">Suburb:</label>
-							<input type="text" id="suburb" name="suburb" readonly /><br />
-							<label for="distance">Distance (km):</label>
-							<input type="text" id="distance" name="distance" readonly /><br />
-						</div>
+  <body>
+    <div class="navigation-tabs">
+      <div class="tab active" onclick="showTab('instructions')">
+        Instructions
+      </div>
+      <div class="tab" onclick="showTab('map-container')">Map</div>
+      <div class="tab" onclick="showTab('charts')">Global</div>
+    </div>
 
-						<div class="form-section manual-input">
-							<h2 class="form-section-title">Manual Input Data</h2>
-							<label for="bedroom2"># of bedrooms:</label>
-							<input
-								type="range"
-								id="bedroom2"
-								name="bedroom2"
-								min="1"
-								max="6"
-								value="1"
-								oninput="updateSliderValue('bedroom2')"
-							/>
-							<span id="bedroom2-value">1</span><br />
+    <div id="map-container" class="content-tab">
+      <h1 class="main-title">Map of Melbourne</h1>
+      <div id="map" class="map-container"></div>
+      <div id="mouse-position" class="mouse-position">Mouse Position:</div>
 
-							<label for="landsize">Land size (sqm):</label>
-							<input
-								type="range"
-								id="landsize"
-								name="landsize"
-								min="50"
-								max="1000"
-								value="50"
-								oninput="updateSliderValue('landsize')"
-							/>
-							<span id="landsize-value">50</span><br />
+      <div id="coordinates" class="form-section">
+        <form id="location-form">
+          <div class="form-container">
+            <div class="form-section pin-data">
+              <h2 class="form-section-title">Data from Pin on Map</h2>
+              <label for="latitude">Latitude:</label>
+              <input type="text" id="latitude" name="latitude" readonly /><br />
+              <label for="longitude">Longitude:</label>
+              <input
+                type="text"
+                id="longitude"
+                name="longitude"
+                readonly
+              /><br />
+              <label for="suburb">Suburb:</label>
+              <input type="text" id="suburb" name="suburb" readonly /><br />
+              <label for="distance">Distance (km):</label>
+              <input type="text" id="distance" name="distance" readonly /><br />
+            </div>
 
-							<label for="bathroom"># of bathrooms:</label>
-							<input
-								type="range"
-								id="bathroom"
-								name="bathroom"
-								min="1"
-								max="5"
-								value="1"
-								oninput="updateSliderValue('bathroom')"
-							/>
-							<span id="bathroom-value">1</span><br />
+            <div class="form-section manual-input">
+              <h2 class="form-section-title">Manual Input Data</h2>
+              <label for="bedroom2"># of bedrooms:</label>
+              <span id="bedroom2-value">1</span>
+              <input
+                type="range"
+                id="bedroom2"
+                name="bedroom2"
+                min="1"
+                max="6"
+                value="1"
+                oninput="updateSliderValue('bedroom2')"
+              />
+              <br />
 
-							<label for="car">Size of garage (in cars):</label>
-							<input
-								type="range"
-								id="car"
-								name="car"
-								min="0"
-								max="5"
-								value="1"
-								oninput="updateSliderValue('car')"
-							/>
-							<span id="car-value">1</span><br />
+              <label for="landsize">Land size (sqm):</label>
+              <span id="landsize-value">50</span>
+              <input
+                type="range"
+                id="landsize"
+                name="landsize"
+                min="50"
+                max="1000"
+                value="50"
+                oninput="updateSliderValue('landsize')"
+              />
+              <br />
 
-							<label for="type">Type:</label>
-							<select id="type" name="type">
-								<option value="h">House, Cottage, Villa, Semi, Terrace</option>
-								<option value="u">Unit, Duplex</option>
-								<option value="t">Townhouse</option></select
-							><br />
-						</div>
-					</div>
+              <label for="bathroom"># of bathrooms:</label>
+              <span id="bathroom-value">1</span>
+              <input
+                type="range"
+                id="bathroom"
+                name="bathroom"
+                min="1"
+                max="5"
+                value="1"
+                oninput="updateSliderValue('bathroom')"
+              />
+              <br />
 
-					<div class="center-button">
-						<button type="button" onclick="sendData()">Send Data</button>
-					</div>
-				</form>
-			</div>
+              <label for="car">Size of garage (in cars):</label>
+              <span id="car-value">1</span>
+              <input
+                type="range"
+                id="car"
+                name="car"
+                min="0"
+                max="5"
+                value="1"
+                oninput="updateSliderValue('car')"
+              />
+              <br />
 
-			<div id="predicted-price-container" class="price-container">
-				<label for="predicted-price">Predicted House Price:</label>
-				<input
-					type="text"
-					id="predicted-price"
-					name="predicted-price"
-					readonly
-					value=""
-				/><br />
-			</div>
+              <label for="type">Type:</label>
+              <select id="type" name="type">
+                <option value="h">House, Cottage, Villa, Semi, Terrace</option>
+                <option value="u">Unit, Duplex</option>
+                <option value="t">Townhouse</option></select
+              ><br />
+            </div>
+          </div>
 
-			<div id="loading-overlay" class="loading-overlay">
-				<div class="spinner"></div>
-				<p id="loading-text" class="loading-text">Loading data...</p>
-			</div>
-		</div>
+          <div class="center-button submit-button">
+            <button type="button" onclick="sendData()">Send Data</button>
+          </div>
+        </form>
+      </div>
 
-		<div id="charts" class="content-tab">
-		
-		</div>
-		
+      <div id="predicted-price-container" class="price-container">
+        <label for="predicted-price">Predicted House Price:</label>
+        <input
+          type="text"
+          id="predicted-price"
+          name="predicted-price"
+          readonly
+          value=""
+        /><br />
+      </div>
 
-		<div id="instructions" class="content-tab active">
-			<h1>How to Use This Application</h1>
-			<div class="instructions-content">
-				<h2>Map Tab</h2>
-				<ul>
-					<li>Click anywhere on the map to select a location</li>
-					<li>The pin data will automatically populate with location details</li>
-					<li>Adjust the sliders for bedrooms, bathrooms, land size, and garage spaces</li>
-					<li>Select the property type from the dropdown menu</li>
-					<li>Click "Send Data" to get a price prediction</li>
-				</ul>
+      <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p id="loading-text" class="loading-text">Loading data...</p>
+      </div>
+    </div>
 
-				<h2>Global Tab</h2>
-				<ul>
-					<li>View various charts and statistics about Melbourne housing data</li>
-					<li>Includes histograms for room distribution, land sizes, and more</li>
-					<li>Pie charts show distribution across suburbs and regions</li>
-				</ul>
+    <div id="charts" class="content-tab"></div>
 
-				<h2>Tips</h2>
-				<ul>
-					<li>For most accurate predictions, ensure all fields are filled</li>
-					<li>You can zoom in/out on the map using the mouse wheel</li>
-					<li>Hover over chart elements to see detailed information</li>
-				</ul>
-			</div>
-		</div>
+    <div id="instructions" class="content-tab active">
+      <h1>How to Use This Application</h1>
+      <div class="instructions-content">
+        <h2>Map Tab</h2>
+        <ul>
+          <li>Click anywhere on the map to select a location</li>
+          <li>
+            The pin data will automatically populate with location details
+          </li>
+          <li>
+            Adjust the sliders for bedrooms, bathrooms, land size, and garage
+            spaces
+          </li>
+          <li>Select the property type from the dropdown menu</li>
+          <li>Click "Send Data" to get a price prediction</li>
+        </ul>
 
-		<div id="house-modal" class="modal"></div>
+        <h2>Global Tab</h2>
+        <ul>
+          <li>
+            View various charts and statistics about Melbourne housing data
+          </li>
+          <li>
+            Includes histograms for room distribution, land sizes, and more
+          </li>
+          <li>Pie charts show distribution across suburbs and regions</li>
+        </ul>
 
-		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-		<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-		<script src="script.js"></script>
-	</body>
+        <h2>Tips</h2>
+        <ul>
+          <li>For most accurate predictions, ensure all fields are filled</li>
+          <li>You can zoom in/out on the map using the mouse wheel</li>
+          <li>Hover over chart elements to see detailed information</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="house-modal" class="modal"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>

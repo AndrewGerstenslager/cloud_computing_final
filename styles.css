@@ -1,278 +1,316 @@
 :root {
-    --primary-blue: #7CB9E8;
-    --primary-blue-hover: #005bb5;
+  --primary-blue: #7cb9e8;
+  --primary-blue-hover: #005bb5;
 }
 
 /* General Reset */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #625D5D; /* Softer dark mode */
-    color: #ffffff;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #625d5d; /* Softer dark mode */
+  color: #ffffff;
 }
 
 /* Headings */
 h1 {
-    text-align: center;
-    margin: 5px auto;
-    color: #ffffff;
-    font-size: 2em;
-    padding: 5px;
+  text-align: center;
+  margin: 5px auto;
+  color: #ffffff;
+  font-size: 2em;
+  padding: 5px;
 }
 
 a {
-    color: var(--primary-blue);
-    text-decoration: none;
+  color: var(--primary-blue);
+  text-decoration: none;
 }
 
 /* Navigation Tabs */
 .navigation-tabs {
-    display: flex;
-    background-color: #3C3B3B;
-    border: 2px solid #000;
-    border-radius: 8px 8px 0 0;
-    margin: 10px 10px 0 10px;
-    overflow: hidden;
+  display: flex;
+  background-color: #3c3b3b;
+  border: 2px solid #000;
+  border-radius: 8px 8px 0 0;
+  margin: 10px 10px 0 10px;
+  overflow: hidden;
 }
 
 .tab {
-    flex: 1;
-    text-align: center;
-    color: #cccccc;
-    padding: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-    border-right: 1px solid #000;
-    border: 0.5px solid #000;
+  flex: 1;
+  text-align: center;
+  color: #cccccc;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  border-right: 1px solid #000;
+  border: 0.5px solid #000;
 }
 
 .tab:last-child {
-    border-right: none;
+  border-right: none;
 }
 
 .tab:hover {
-    background-color: #555;
+  background-color: #555;
 }
 
 .tab.active {
-    background-color: var(--primary-blue);
-    color: #ffffff;
+  background-color: var(--primary-blue);
+  color: #ffffff;
 }
 
 /* Content Tabs */
 .content-tab {
-    display: none;
-    padding: 20px;
+  display: none;
+  padding: 20px;
 }
 
 /* Instructions Tab */
 #instructions {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 #instructions .instructions-content {
-    text-align: left;
-    background: #3C3B3B;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
+  text-align: left;
+  background: #3c3b3b;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
 #instructions ul {
-    display: inline-block;
-    text-align: left;
-    margin: 10px auto;
+  display: inline-block;
+  text-align: left;
+  margin: 10px auto;
 }
 
 #instructions h2 {
-    color: var(--primary-blue);
-    margin-top: 25px;
+  color: var(--primary-blue);
+  margin-top: 25px;
 }
 
 .content-tab.active {
-    display: block;
+  display: block;
 }
 
 /* Map Container */
 .map-container {
-    width: 95%;
-    height: 500px;
-    border: 2px solid #444;
-    margin: 20px auto; /* Changed from '20px 0' to '20px auto' */
-    display: block;
+  width: 95%;
+  height: 500px;
+  border: 2px solid #444;
+  margin: 20px auto; /* Changed from '20px 0' to '20px auto' */
+  display: block;
 }
 
 /* Mouse Position Floating Box */
 #mouse-position {
-    position: absolute;
-    top: 70px; /* Adjusted to float below the header */
-    right: 20px;
-    background-color: rgba(50, 50, 50, 0.9);
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 140px; /* Adjusted to float below the header */
+  right: 20px;
+  background-color: rgba(50, 50, 50, 0.9);
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* Form Section */
 .form-section {
-    background: #3C3B3B;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    margin: 15px 0;
+  background: #3c3b3b;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  margin: 15px 0;
 }
 
 .form-section-title {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: var(--primary-blue);
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--primary-blue);
 }
 
 label {
-    display: block;
-    margin-top: 10px;
-    color: #cccccc;
+  display: block;
+  margin-top: 10px;
+  color: #cccccc;
 }
 
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    background: #444;
-    color: #ffffff;
-    border: 1px solid #555;
-    border-radius: 5px;
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  background: #444;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 5px;
 }
 
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--primary-blue);
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
 }
 
 input[type="range"] {
-    width: calc(100% - 20px);
+  width: calc(100% - 20px);
 }
 
 button {
-    background-color: var(--primary-blue);
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: var(--primary-blue-hover);
+  background-color: var(--primary-blue-hover);
 }
 
 .center-button {
-    text-align: center;
+  text-align: center;
 }
 
 /* Two-Column Layout for Form Sections */
 .form-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.pin-data, .manual-input {
-    flex: 1;
+.pin-data,
+.manual-input {
+  flex: 1;
 }
 
 /* Predicted Price Container */
 .price-container {
-    margin-top: 20px;
-    padding: 15px;
-    background: #3C3B3B;
-    border-radius: 8px;
-    text-align: center;
+  margin-top: 20px;
+  padding: 15px;
+  background: #3c3b3b;
+  border-radius: 8px;
+  text-align: center;
 }
 
 /* Loading Overlay */
 .loading-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; /* Stack items vertically */
-    gap: 15px; /* Add spacing between spinner and text */
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Stack items vertically */
+  gap: 15px; /* Add spacing between spinner and text */
 }
 
 .loading-overlay .spinner {
-    border: 6px solid #3C3B3B;
-    border-top: 6px solid var(--primary-blue);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
+  border: 6px solid #3c3b3b;
+  border-top: 6px solid var(--primary-blue);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
 }
 
 .loading-overlay .loading-text {
-    font-size: 16px;
-    color: #ffffff;
-    text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+  text-align: center;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive Design for Small Screens */
 @media (max-width: 768px) {
-    .form-container {
-        flex-direction: column;
-    }
+  .form-container {
+    flex-direction: column;
+  }
 }
 
 /* Ensure input fields fit within the div */
 input[type="text"] {
-    width: calc(100% - 20px); /* Adjust for padding */
-    box-sizing: border-box; /* Include padding and border in width */
-    padding: 8px;
-    margin-top: 5px;
-    background: #444;
-    color: #ffffff;
-    border: 1px solid #555;
-    border-radius: 5px;
+  width: calc(100% - 20px); /* Adjust for padding */
+  box-sizing: border-box; /* Include padding and border in width */
+  padding: 8px;
+  margin-top: 5px;
+  background: #444;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 5px;
 }
 
 input[type="text"]:focus {
-    outline: none;
-    border-color: var(--primary-blue);
+  outline: none;
+  border-color: var(--primary-blue);
 }
 
 /* Adjust form container padding */
 #form-container {
-    padding: 10px;
-    box-sizing: border-box; /* Ensures everything fits inside the container */
+  padding: 10px;
+  box-sizing: border-box; /* Ensures everything fits inside the container */
 }
 
 /* Content Tabs */
 .content-tab {
-    display: none;
-    padding: 20px;
+  display: none;
+  padding: 20px;
 }
 
+/* Header styling */
+.header {
+  display: flex;
+  justify-content: space-between; /* Aligns the welcome message and the button on opposite sides */
+  align-items: center; /* Vertically aligns the items */
+  background-color: #333; /* Dark background color */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Padding for spacing */
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+  max-width: 100%; /* Ensures no overflow beyond the page width */
+}
 
+.header .welcome-message {
+  font-size: 18px; /* Font size for the welcome message */
+}
+
+.header .logout-button {
+  background-color: #f44336; /* Red background for the logout button */
+  color: white; /* White text color */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Padding around the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size for the button */
+  border-radius: 5px; /* Rounded corners for the button */
+}
+
+.header .logout-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Add some margin to the top of the page content to give space between the header and the navigation */
+.content-tab {
+  margin-top: 20px; /* Adjust this value as needed */
+}

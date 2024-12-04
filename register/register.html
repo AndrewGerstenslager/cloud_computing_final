@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="register.js" defer></script>
+  </head>
+  <body>
+    <div class="register-page">
+      <!-- Floating Notification -->
+      <div class="notification" id="notification">
+        Registering and redirecting you to the login page...
+      </div>
+
+      <!-- Register Form -->
+      <div class="register-container">
+        <h1 class="register-title">Register</h1>
+        <form id="registerForm" class="register-form">
+          <div class="form-item">
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+          <div class="form-item">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div class="form-item">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="form-item">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-item">
+            <button type="submit">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function handleRegistration(event) {
+        event.preventDefault();
+        const notification = document.getElementById("notification");
+        notification.style.display = "block"; // Show the notification
+        setTimeout(() => {
+          window.location.href = "/login"; // Redirect to login after 3 seconds
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>

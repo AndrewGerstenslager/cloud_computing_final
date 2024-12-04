@@ -1,0 +1,97 @@
+/* General Reset */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #625d5d; /* Softer dark mode */
+  color: #ffffff;
+  height: 100%;
+}
+
+/* Fullscreen Centering */
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #625d5d;
+}
+
+/* Notification Styling */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #0073e6;
+  color: #ffffff;
+  padding: 15px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  display: none; /* Hidden by default */
+  font-size: 14px;
+  z-index: 1000;
+}
+
+/* Register Page Container */
+.register-container {
+  background: #3c3b3b;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 350px;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* Title Styling */
+.register-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* Form Styling */
+.register-form .form-item {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.register-form label {
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 12px;
+  background: #444;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: #0073e6;
+}
+
+/* Buttons Styling */
+.register-form button {
+  background-color: #0073e6;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 16px;
+}
+
+.register-form button:hover {
+  background-color: #005bb5;
+  transform: scale(1.02);
+}

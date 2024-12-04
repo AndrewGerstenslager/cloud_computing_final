@@ -1,0 +1,93 @@
+/* General Reset */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #625d5d; /* Softer dark mode */
+  color: #ffffff;
+  height: 100%;
+}
+
+/* Fullscreen Centering */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #625d5d;
+}
+
+/* Login Page Container */
+.login-container {
+  background: #3c3b3b;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 350px;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* Title Styling */
+.login-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* Form Styling */
+.login-form .form-item {
+  margin-bottom: 20px; /* Add spacing between items */
+  text-align: left;
+}
+
+.login-form label {
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.login-form input {
+  width: 100%; /* Full-width inputs */
+  padding: 12px; /* Match the main page input box style */
+  background: #444;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #0073e6;
+}
+
+/* Buttons Styling */
+.login-form button,
+.register-button {
+  background-color: #0073e6;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 16px;
+}
+
+.login-form button:hover,
+.register-button:hover {
+  background-color: #005bb5;
+  transform: scale(1.02);
+}
+
+/* Register Button Styling */
+.register-button {
+  background-color: #555;
+}
+
+.register-button:hover {
+  background-color: #777;
+}
